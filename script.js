@@ -5,19 +5,39 @@ const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 
 const form = document.querySelector('.form');
 const containerWorkouts = document.querySelector('.workouts');
-const inputType = document.querySelector('.form__input--type');
-const inputDistance = document.querySelector('.form__input--distance');
+const inputTask = document.querySelector('.form__input--task');
+const inputLocation = document.querySelector('.form__input--location');
 const inputDuration = document.querySelector('.form__input--duration');
-const inputCadence = document.querySelector('.form__input--cadence');
-const inputElevation = document.querySelector('.form__input--elevation');
+const inputTiming = document.querySelector('.form__input--timing');
 
-let map;
+if(navigator.geolocation)
+navigator.geolocation.getCurrentPosition(function(position){
+  const{latitude} = position.coords;
+  const {longitude} = position.coords;
+  const coords = [latitude,longitude]
+  var map = L.map('map').setView(coords, 12);
 
-function initMap() {
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 8,
-  });
-}
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
 
-window.initMap = initMap;
+  map.on('click',function(ev){
+    L.marker([ev.latlng.lat,ev.latlng.lng]).addTo(map)
+    .bindPopup(L.popup({
+      maxWidth : 300,
+      minWidth : 200,
+      autoClose : false,
+      closeOnClick : false,
+      closeButton : false,
+      className : 'running-popup'
+    }).setContent('Hello World'))
+    .openPopup();
+  })
+
+
+
+
+},function(){
+  alert('Could not get your position!');
+})
+
