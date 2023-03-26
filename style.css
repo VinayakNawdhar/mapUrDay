@@ -218,3 +218,21 @@ a:visited {
 .cycling-popup .leaflet-popup-content-wrapper {
   border-left: 5px solid var(--color-brand--1);
 }
+.reset{
+  /* background-color: black; */
+  width: 250px;
+}
+.reset button{
+  width: 100px;
+  height: 30px;
+  position: relative;
+  left: 160px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  border-color: #aaa;
+  cursor: pointer;
+}
+.reset button:hover{
+  border-color: #7c7979;
+}
